@@ -1,23 +1,17 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /sites/<path to project folder>
-    overwrite: true
+  - source: /index.html
+    destination: /var/www/html/
 hooks:
   BeforeInstall:
-    - location: <Before install Bash File>.sh
-      timeout: <Timeout in second>
-      runas: <Linux User>
-  AfterInstall:
-    - location: <After install Bash File>.sh
-      timeout: <Timeout in second>
-      runas: <Linux User>
-  ApplicationStart:
-    - location: <Application Start Bash File>.sh
-      timeout: <Timeout in second>
-      runas: <Linux User>
+    - location: scripts/install_dependencies
+      timeout: 100
+      runas: root
+    - location: scripts/start_server
+      timeout: 100
+      runas: root
   ApplicationStop:
-    - location: <Application Stop Bash File>.sh
-      timeout: <Timeout in second>
-      runas: <Linux User>
+    - location: scripts/stop_server
+      timeout: 100
+      runas: root
